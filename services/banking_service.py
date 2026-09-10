@@ -20,8 +20,23 @@ load_dotenv(PROJECT_ROOT / ".env")
 
 DEMO_USER_ID = "DEMO-USER-001"
 DEMO_ACCOUNT_ID = "ACCT-1001"
-MODEL_NAME = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b").strip()
 MAX_RPM = 900
+
+
+def _setting(name: str, default: str = "") -> str:
+    """Read local environment values or Streamlit Cloud secrets."""
+    value = os.getenv(name)
+    if value:
+        return value.strip()
+    try:
+        import streamlit as st
+
+        return str(st.secrets.get(name, default)).strip()
+    except Exception:
+        return default.strip()
+
+
+MODEL_NAME = _setting("GROQ_MODEL", "openai/gpt-oss-120b")
 
 
 def _is_rate_limit_error(error: BaseException) -> bool:
@@ -32,7 +47,7 @@ def _is_rate_limit_error(error: BaseException) -> bool:
 @retry(retry=retry_if_exception(_is_rate_limit_error), wait=wait_exponential(multiplier=1, min=2, max=30), stop=stop_after_attempt(4), reraise=True)
 def create_llm() -> ChatGroq:
     """Create the Groq client for the free-tier OpenAI open-weight model."""
-    api_key = os.getenv("GROQ_API_KEY", "").strip()
+    api_key = _setting("GROQ_API_KEY")
     if not api_key:
         raise RuntimeError("GROQ_API_KEY is missing. Add it to the project .env file.")
     return ChatGroq(
