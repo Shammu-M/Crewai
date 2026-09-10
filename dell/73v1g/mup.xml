@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MUPDefinition xsi:schemaLocation="http://schemas.dell.com/openmanage/cm/2/0/mupdefinition.xsd mupdefinition.xsd" xmlns="http://schemas.dell.com/openmanage/cm/2/0/mupdefinition.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<packageinformation>
+  	<installertype>custom</installertype>
+		<packagegrouping>single_package</packagegrouping>
+		<packagingtype>zip</packagingtype>
+		<releasetype>DRVR</releasetype>
+		<name>Intel Common PPM Package</name>
+		<version>2.1.1</version>
+		<mupspecificationversion>2.4.5</mupspecificationversion>
+		<supportedoperatingsystems>
+			<osidentifier name="Windows11" architecture="x64" />
+			<osidentifier name="Windows10" architecture="x64" />
+		</supportedoperatingsystems>
+  <content>  
+		<Device componentID="106712">
+      <Image type="APP" version="2.1.1">
+					<file>add_Intelppm.bat</file>
+					<file>del_Intelppm.ps1</file>
+					<file>PPM-TGL-preview-v9.402.ppkg</file>
+					<file>PPM-ADL-preview-v1001.20220331.ppkg</file>
+					<file>PPM-ADL-N-preview-v1001.20220811.ppkg</file>
+					<file>PPM-Win10-preview-v1000.20221101.ppkg</file>
+					<file>PPM-RPL-preview-v1003.20230524.ppkg</file>
+					<file>PPM-ADL-N-preview-v1000.20220719.ppkg</file>
+					<file>PPM-MTL-preview-v1004.20231025.ppkg</file>
+					<file>PPM-Win10-MTL-preview-v1000.20230905.ppkg</file>
+					<file>PPM-LNL-preview-v1006.20230906.ppkg</file>
+					<file>PPM-SPR-preview-v2000.20231027.ppkg</file>
+			</Image>
+    </Device>
+  </content>  
+	</packageinformation>    
+  
+	<executable  architecture="x64">
+		<executablename>add_Intelppm.bat</executablename>
+	</executable>
+	<behaviors>
+		<behavior name="attended"/>
+		<behavior name="unattended"/>
+	</behaviors>
+  
+	<parameters>
+		<parametermapping name="logfile"/>
+	</parameters>
+      	
+	<returncodes>
+		<returncodemapping name="SUCCESS">
+			<vendorreturncode>0</vendorreturncode>
+		</returncodemapping>
+		<returncodemapping name="ERROR">
+			<vendorreturncode>1</vendorreturncode>
+		</returncodemapping>
+		<returncodemapping name="ERROR_INSTALL_PLATFORM_UNSUPPORTED">
+			<vendorreturncode>20</vendorreturncode>
+		</returncodemapping>
+	</returncodes>
+
+	<inventorymetadata>
+		<fullpackageidentifier>
+			<registrykeys>
+				<registrykey componentID="106712">
+					<name>HKEY_LOCAL_MACHINE\SOFTWARE\Dell\ManageableUpdatePackage\IntelPPM\Product_Version</name>
+					<value>2.1.1</value>
+					<displayName>HKEY_LOCAL_MACHINE\SOFTWARE\Dell\ManageableUpdatePackage\IntelPPM\Product_Name</displayName>
+					<displayValue>Intel Common PPM Package</displayValue>
+				</registrykey>
+			</registrykeys>
+		</fullpackageidentifier>
+	</inventorymetadata>
+
+</MUPDefinition>
